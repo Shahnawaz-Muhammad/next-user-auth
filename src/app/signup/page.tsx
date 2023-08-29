@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 export default function SignUp() {
   const router = useRouter()
@@ -19,11 +20,14 @@ export default function SignUp() {
       setLoading(true)
       console.log("Signup Successfull")
 
-      const response = await axios.post("api/users/signup", user)
+      const response = await axios.post("/api/users/signup", user)
       console.log("Signup Successfull", response.data)
+      toast.success("Registeration Successfull")
       router.push("/login")
     } catch (error:any) {
+      toast.error("Registeration failed")
       console.log("Signup Failed", error.message)
+
     }
     finally{
       setLoading(false)
